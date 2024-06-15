@@ -1,6 +1,6 @@
 version: 2
 updates:
   - package-ecosystem: docker
-    directory: /php8.2/
+    directory: /php8/
     schedule:
       interval: daily
