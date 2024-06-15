@@ -2,7 +2,7 @@ FROM docker.io/library/php:8.2-fpm@sha256:bb3965026f2e2ae2e59f9c80848d3d1343b12c
 ARG NODE_VERSION=18
 ENV LC_ALL C.UTF-8
 
-COPY --from=ghcr.io/shyim/supervisord:latest@sha256:9e46604d27fb7085cb009558e484780419236ec5e37eda26af9242e7f8c0ce82 --link /usr/local/bin/supervisord /usr/bin/supervisord
+COPY --from=ghcr.io/shyim/supervisord:latest@sha256:1531279d119ffb0e4411f1d769026f10dd52916c3078056e81068e4d8586d296 --link /usr/local/bin/supervisord /usr/bin/supervisord
 COPY --from=docker.io/library/caddy:2.7@sha256:ca031cd33c788ebe467c94348400e5bf263178f9619f3993af8373f18681b8fd --link /usr/bin/caddy /usr/bin/caddy
 
 RUN export DEBIAN_FRONTEND=noninteractive \
