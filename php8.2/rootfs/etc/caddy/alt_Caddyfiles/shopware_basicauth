@@ -1,0 +1,42 @@
+:80
+
+log
+
+route {
+
+    handle {
+        @withBasicAuth {
+            not path /api/* /media/* /thumbnail/*
+        }
+
+        basicauth @withBasicAuth {
+            #BASICAUTH_PLACEHOLDER#
+        }
+
+
+        # Existing directives
+        header {
+            X-Frame-Options DENY
+            Referrer-Policy no-referrer-when-downgrade
+        }
+
+        @svg {
+            file
+            path *.svg
+        }
+
+        header @svg Content-Security-Policy "script-src 'none'"
+
+        @servedByPhp {
+            not path /theme/* /media/* /thumbnail/* /bundles/* /css/* /fonts/* /js/* /recovery/* /sitemap/*
+        }
+
+        root * /app/public
+        php_fastcgi @servedByPhp unix//tmp/php-fpm.sock {
+            trusted_proxies private_ranges
+        }
+        encode zstd gzip
+        file_server
+    }
+}
+
