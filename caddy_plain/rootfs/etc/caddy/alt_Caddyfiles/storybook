@@ -1,9 +1,0 @@
-:80
-
-log
-
-route {
-  root * /app/public
-  encode zstd gzip
-  file_server
-}
