@@ -26,32 +26,6 @@ else
             done
         fi
 
-        if [ "${OCY_CADDYFILE_OVERWRITE:-}" ]; then
-            if [ -s ${OCY_CADDYFILE_OVERWRITE} ]; then
-                echo "copy ${OCY_CADDYFILE_OVERWRITE} to /etc/caddy/Caddyfile"
-                cp ${OCY_CADDYFILE_OVERWRITE} /etc/caddy/Caddyfile
-            else
-                echo "OCY_CADDYFILE_OVERWRITE-File ${OCY_CADDYFILE_OVERWRITE} does not exist or is empty!"
-                exit 0
-            fi
-        else
-            if [ "${OCY_APP_FRAMEWORK:-}" ]; then 
-                if [[ ${OCY_BASICAUTH_ENABLED} ]]; then
-                    echo "write specifc ${OCY_APP_FRAMEWORK} Caddyfile with ${OCY_BASICAUTH_USER:-onacy} User for basic-auth."
-                    CADDY_PASSWD=$(caddy hash-password -p${OCY_BASICAUTH_PASSWD:-onacy})
-                    cp "/etc/caddy/alt_Caddyfiles/${OCY_APP_FRAMEWORK}_basicauth" /etc/caddy/Caddyfile
-                    BASIC_AUTH_STRING="${OCY_BASICAUTH_USER:-onacy} ${CADDY_PASSWD}"
-                    sed -i -e "s~#BASICAUTH_PLACEHOLDER#~$BASIC_AUTH_STRING~g" /etc/caddy/Caddyfile
-                else
-                    echo "wrote specifc ${OCY_APP_FRAMEWORK} Caddyfile"
-                    cp /etc/caddy/alt_Caddyfiles/${OCY_APP_FRAMEWORK} /etc/caddy/Caddyfile            
-                fi
-            else
-                echo "Set OCY_APP_FRAMEWORK variable (e.g. shopware, laravel)"
-                exit 0 
-            fi
-        fi
-
         if [ -d "$HOOK_FOLDER/post-hook" ]; then
             for f in ${HOOK_FOLDER}/post-hook/*; do
                 . "$f"
