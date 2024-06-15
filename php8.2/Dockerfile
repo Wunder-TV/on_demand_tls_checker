@@ -3,7 +3,7 @@ ARG NODE_VERSION=18
 ENV LC_ALL C.UTF-8
 
 COPY --from=ghcr.io/shyim/supervisord:latest@sha256:1531279d119ffb0e4411f1d769026f10dd52916c3078056e81068e4d8586d296 --link /usr/local/bin/supervisord /usr/bin/supervisord
-COPY --from=docker.io/library/caddy:2.7@sha256:ca031cd33c788ebe467c94348400e5bf263178f9619f3993af8373f18681b8fd --link /usr/bin/caddy /usr/bin/caddy
+COPY --from=docker.io/library/caddy:2.8@sha256:60199fbf2046892e0aa4b19c7d3adf71f530c36abc65728627422148a75b3475 --link /usr/bin/caddy /usr/bin/caddy
 
 RUN export DEBIAN_FRONTEND=noninteractive \
     && apt-get update \
