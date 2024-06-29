@@ -73,7 +73,7 @@ RUN chmod +x /usr/local/bin/install-php-extensions && \
     rm -f /usr/local/etc/php-fpm.d/www.conf.default
 
 ENV FPM_PM=dynamic \
-    FPM_PM_MAX_CHILDREN=5 \
+    FPM_PM_MAX_CHILDREN=10 \
     FPM_PM_START_SERVERS=2 \
     FPM_PM_MIN_SPARE_SERVERS=1 \
     FPM_PM_MAX_SPARE_SERVERS=3 \
