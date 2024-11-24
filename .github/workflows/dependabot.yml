@@ -1,6 +1,6 @@
 version: 2
 updates:
   - package-ecosystem: docker
-    directory: /php/
+    directory: /on_demand_tls_checker/
     schedule:
       interval: daily
