@@ -47,6 +47,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	domain := r.URL.Query().Get("domain")
 	if domain == "" {
 		http.Error(w, "Missing 'domain' query parameter", http.StatusBadRequest)
+		log.Println("Missing 'domain' query parameter")
 		return
 	}
 
@@ -66,6 +67,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	err := row.Scan(&trimmedURL)
 	if err != nil {
 		if err == sql.ErrNoRows {
+			log.Printf("INFO: No matching results found for domain: %s", domain)
 			http.Error(w, "No matching results found", http.StatusNotFound)
 			return
 		}
@@ -75,6 +77,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 	// Return the result to the user
 	fmt.Fprintf(w, "200 - OK: %s\n", trimmedURL)
+	log.Printf("INFO: Domain found: %s", trimmedURL)
 }
 
 func main() {
